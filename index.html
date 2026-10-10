@@ -304,6 +304,15 @@ footer.site a{color:var(--white)}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
+
+/* hero balance */
+.car-board,.repair-list,.car-board *{min-width:0;max-width:100%}
+@media(min-width:960px){.hero-grid{align-items:center}.hero{padding-bottom:var(--s6)}.hero-side{display:flex;flex-direction:column;gap:var(--s4);padding-bottom:0}.hero-side .stage{margin:0}}
+/* estimate balance */
+.est-steps{list-style:none;margin:var(--s5) 0 0;padding:0;display:grid;gap:var(--s2)}
+.est-steps li{display:flex;gap:var(--s3);align-items:center;border:1px solid #e3e3e6;padding:var(--s3) var(--s4);font-weight:600}
+.est-steps b{flex:none;display:grid;place-items:center;width:34px;height:34px;background:var(--red);color:#fff}
+@media(min-width:960px){.est-grid{align-items:stretch}.est-grid>*:last-child{display:flex;flex-direction:column}.est-grid form textarea{min-height:150px}}
 </style>
 </head>
 <body>
@@ -344,13 +353,6 @@ footer.site a{color:var(--white)}
         </div>
       </div>
       <div class="hero-side">
-        <div class="spec">
-          <div><span>Google rating</span><b>5.0 / 5</b></div>
-          <div><span>Google reviews</span><b>250</b></div>
-          <div><span>Shop hours</span><b>Weekdays, to 4:30 PM</b></div>
-        </div>
-      </div>
-    </div>
     <div class="stage" aria-hidden="true">
       <svg viewBox="0 0 1200 420">
         <defs>
@@ -392,7 +394,14 @@ footer.site a{color:var(--white)}
         </g>
       </svg>
     </div>
-  </div>
+        <div class="spec">
+          <div><span>Google rating</span><b>5.0 / 5</b></div>
+          <div><span>Google reviews</span><b>250</b></div>
+          <div><span>Shop hours</span><b>Weekdays, to 4:30 PM</b></div>
+        </div>
+      </div>
+    </div>
+</div>
 </section>
 
 <section class="proof" aria-label="At a glance">
@@ -553,10 +562,10 @@ footer.site a{color:var(--white)}
       <div class="wall">
         <div class="spot" id="spot" aria-roledescription="carousel" aria-label="Google reviews">
           <svg class="qm" viewBox="0 0 72 56" aria-hidden="true"><path d="M0,56 V30 Q0,4 30,0 V12 Q14,16 14,28 H30 V56 Z M42,56 V30 Q42,4 72,0 V12 Q56,16 56,28 H72 V56 Z" fill="currentColor"/></svg>
-          <blockquote id="q" aria-live="polite">Chris at Aaron auto body did a great job restoring my 2023 Kia Telluride.</blockquote>
+          <blockquote id="q" aria-live="polite">Restorations customers are proud to drive again.</blockquote>
           <div>
             <footer>
-              <p class="who"><b id="qwho">Frank F., Google review</b> <span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span></p>
+              <p class="who"><b id="qwho">Theme from Google reviews</b> <span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span></p>
               <div class="ctrls">
                 <button type="button" id="prev" aria-label="Previous review">&#8249;</button>
                 <button type="button" id="pause" aria-label="Pause rotation">&#10074;&#10074;</button>
@@ -567,7 +576,7 @@ footer.site a{color:var(--white)}
           </div>
         </div>
         <div class="queue" id="queue"></div>
-        <p class="sample"><b>Sample feature.</b> The live connection is simulated. The quotes are four real reviews from the public Google listing, rotated by script. A finished version would pull new reviews from the Google listing automatically.</p>
+        <p class="sample"><b>Sample feature.</b> The live connection is simulated. The lines are paraphrased themes from the public Google listing, rotated by script. A finished version would pull new reviews from the Google listing automatically.</p>
       </div>
     </div>
   </div>
@@ -612,12 +621,13 @@ footer.site a{color:var(--white)}
       <h2 style="font-size:clamp(44px,5.6vw,80px)">Tell us what happened.</h2>
       <p>A few details and some photos give the shop a head start. Prefer to talk it through? Call and ask for Chris.</p>
       <a class="call-big" href="tel:+16312896550">(631) 289-6550</a>
+      <ol class="est-steps"><li><b>1</b>Send a few photos of the damage.</li><li><b>2</b>See the job before you drive over.</li><li><b>3</b>Bring the car to North Ocean Ave.</li></ol>
     </div>
     <div>
       <form class="demo" novalidate>
         <div class="f"><label for="n">Name</label><input id="n" name="name" required autocomplete="name"></div>
         <div class="f"><label for="p">Phone</label><input id="p" name="phone" type="tel" required autocomplete="tel"></div>
-        <div class="f"><label for="v">Vehicle <small>(year, make, model)</small></label><input id="v" name="vehicle" required placeholder="2023 Kia Telluride"></div>
+        <div class="f"><label for="v">Vehicle <small>(year, make, model)</small></label><input id="v" name="vehicle" required placeholder="2021 Honda CR-V"></div>
         <div class="f"><label for="a">Where's the damage?</label>
           <select id="a" name="area" required><option value="">Choose one</option><option>Collision damage</option><option>Door or panel</option><option>Rim scuffs</option><option>Front end</option><option>Paint or color match</option><option>Not sure</option></select></div>
         <div class="f full"><label for="d">What happened? <small>(optional)</small></label><textarea id="d" name="details"></textarea></div>
@@ -646,7 +656,7 @@ footer.site a{color:var(--white)}
       <div><h3>Hours</h3><p>Weekdays, closes 4:30 PM<br>Call for opening time</p></div>
     </div>
     <div class="disc">
-      <p>Independent website concept designed by Lisette Colon. Not affiliated with or approved by Aaron Auto Body. Address, hours, rating and review quotes are from the business's public Google listing, checked October 2026.</p>
+      <p>Independent website concept designed by Lisette Colon. Not affiliated with or approved by Aaron Auto Body. Address, hours, rating and review themes are from the business's public Google listing, checked October 2026.</p>
       <p>Repair descriptions are written for this concept and are a service list to confirm with the owner. The car illustrations, color match tool and live review feed are sample features: the feed is simulated and the color tool is a simplified illustration. The estimate form is a demo and sends nothing. Concept by <a href="https://www.lisettecolon.com">Lisette Colon</a>.</p>
     </div>
   </div>
@@ -716,10 +726,10 @@ footer.site a{color:var(--white)}
 
   // review feed
   var Q=[
-    ['Chris at Aaron auto body did a great job restoring my 2023 Kia Telluride.','Frank F., Google review'],
-    ['Great communication, great price, and above all, REALLY quality work!','Google review'],
-    ['Highly recommend if you need quality body work done right.','Google review'],
-    ['Great service and amazing people work there.','Google review']
+    ['Restorations customers are proud to drive again.','Theme from Google reviews'],
+    ['Clear updates, fair prices and quality work.','Theme from Google reviews'],
+    ['Body work done right the first time.','Theme from Google reviews'],
+    ['Friendly people and great service.','Theme from Google reviews']
   ];
   var qi=0,playing=!reduce,elapsed=0,DUR=7000,last=performance.now();
   var qEl=document.getElementById('q'),who=document.getElementById('qwho'),bar=document.getElementById('bar'),queue=document.getElementById('queue'),pause=document.getElementById('pause'),spot=document.getElementById('spot');
