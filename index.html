@@ -48,6 +48,7 @@ nav.main a:hover{opacity:1;color:#ffb3b8}
 @keyframes kb{to{transform:scale(1)}}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,12,.7) 0%,rgba(10,10,12,.15) 30%,rgba(10,10,12,.35) 55%,rgba(10,10,12,.92) 100%)}
 .hero .in{position:relative;z-index:2;width:100%;padding-block:9rem 3rem}
+@media(max-width:759px){.hero{display:block;min-height:0}.hero .bg{position:relative;aspect-ratio:4/3}.hero .bg img{object-position:50% 50%}.hero::after{bottom:auto;aspect-ratio:4/3;background:linear-gradient(180deg,rgba(10,10,12,.55) 0%,rgba(10,10,12,0) 35%,rgba(10,10,12,0) 70%,#141518 100%)}.hero .in{background:#141518;padding-block:1.6rem 2.6rem}}
 .hero .g{display:grid;grid-template-columns:minmax(0,1fr);gap:2rem;align-items:end}
 @media(min-width:1000px){.hero .g{grid-template-columns:minmax(0,1.5fr) minmax(0,.7fr);gap:3rem}}
 .hero h1{font-size:clamp(3rem,7.4vw,6.6rem);font-stretch:118%}
