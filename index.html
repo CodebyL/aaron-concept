@@ -141,6 +141,19 @@ dialog.lb button{min-width:52px;min-height:48px;border:1.5px solid #fff;backgrou
 .badge .g{font:700 .74rem var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--soft);margin:0}
 .badge .big{font:800 4.4rem/1 var(--head);font-stretch:118%;margin:0}
 .badge .st{color:#e3a300;letter-spacing:.14em;margin:0}
+.badge .gz{position:relative;width:100%;max-width:300px;margin:.2rem 0 -.2rem}
+.badge .gz svg{display:block;width:100%;height:auto}
+.gz .bar{fill:#e2e0db}
+.gz .bar.red{fill:#f3c9cc}
+.gz .bar.lit{fill:var(--ink);transition:fill .2s linear calc(.35s + var(--i) * 45ms)}
+.gz .bar.lit.red{fill:var(--red)}
+.js .badge:not(.in) .gz .bar.lit{fill:#e2e0db}
+.js .badge:not(.in) .gz .bar.lit.red{fill:#f3c9cc}
+.gz text{font:800 13px var(--head);font-stretch:118%;fill:var(--soft)}
+.gz .ndl{transform-origin:150px 150px;transform:rotate(var(--rot));transition:transform 1.6s cubic-bezier(.3,1.15,.5,1) .3s}
+.js .badge:not(.in) .gz .ndl{transform:rotate(-90deg)}
+@media(prefers-reduced-motion:reduce){.js .badge .gz .ndl{transform:rotate(var(--rot))}.js .badge .gz .bar.lit{fill:var(--ink)}.js .badge .gz .bar.lit.red{fill:var(--red)}}
+
 .badge ul{margin:auto 0 0;padding:1rem 0 0;border-top:1px solid var(--line);list-style:none;display:grid;gap:.5rem;font-size:.95rem}
 .badge li{display:flex;gap:.6rem}.badge li::before{content:"";flex:none;width:8px;height:8px;margin-top:.55rem;background:var(--red)}
 .wall{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:6px;padding:clamp(1.4rem,3vw,2.2rem);display:flex;flex-direction:column;gap:1.2rem}
@@ -312,7 +325,7 @@ footer .dis{margin-top:1.4rem;padding-top:1rem;border-top:1px solid #2c2e35;font
  <div class="tagline"><b>Featured add-on</b><span>Live Google review feed, from $150</span></div>
  <div class="head"><div><p class="lab" style="color:#ff8e95">Google reviews</p><h2 class="rv">250 reviews. A perfect 5.0.</h2></div><p class="rv" style="--d:1">A rating badge and rotating review wall that stay current on their own once connected to the Google listing.</p></div>
  <div class="fg">
-  <div class="badge rv"><p class="g">Google rating</p><p class="big">5.0</p><p class="st" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p><p style="margin:0;color:var(--soft)">From 250 Google reviews</p>
+  <div class="badge rv"><p class="g">Google rating</p><div class="gz" role="img" aria-label="Google rating gauge: 5.0 out of 5 from 250 reviews"><svg id="gz" viewBox="0 0 300 180" aria-hidden="true" focusable="false"></svg></div><p class="big">5.0</p><p class="st" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p><p style="margin:0;color:var(--soft)">From 250 Google reviews</p>
    <ul><li>Star score and review count kept current</li><li>A rotating wall styled to match the site</li><li>Pauses when someone is reading</li><li>Setup and testing on phones</li></ul></div>
   <div class="wall rv" style="--d:1" aria-roledescription="carousel" aria-label="Review themes">
    <div class="sync"><i></i><span>Sample feed, refreshed just now</span></div>
@@ -359,6 +372,14 @@ footer .dis{margin-top:1.4rem;padding-top:1rem;border-top:1px solid #2c2e35;font
 "use strict";
 var d=document,$=function(s){return d.querySelector(s)},$$=function(s){return [].slice.call(d.querySelectorAll(s))},RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
 d.documentElement.classList.add("js");
+(function(){var g=d.getElementById("gz");if(!g)return;var NS="http://www.w3.org/2000/svg",V=5.0,c=150;
+function pt(a,r){var t=a*Math.PI/180;return[(c+r*Math.sin(t)).toFixed(2),(c-r*Math.cos(t)).toFixed(2)];}
+function el(n,a,p){var e=d.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);(p||g).appendChild(e);return e;}
+var N=20;for(var i=0;i<N;i++){var a0=-90+i*9+1.6,a1=-90+(i+1)*9-1.6,ro=134,ri=i%4===3?100:108,o0=pt(a0,ro),o1=pt(a1,ro),i1=pt(a1,ri),i0=pt(a0,ri),red=i>=16,lit=(i+1)/N*5<=V+.001;
+ var b=el("path",{d:"M"+o0+" A"+ro+" "+ro+" 0 0 1 "+o1+" L"+i1+" A"+ri+" "+ri+" 0 0 0 "+i0+" Z","class":"bar"+(red?" red":"")+(lit?" lit":"")});b.style.setProperty("--i",i);}
+for(var k=0;k<=5;k++){var end=k===0||k===5,tp=pt(-90+k*36,end?121:86);var t=el("text",{x:tp[0],y:+tp[1]+(end?24:5),"text-anchor":"middle"});t.textContent=k;}
+var n=el("g",{"class":"ndl"});el("path",{d:"M144 150 L148 46 h4 L156 150 Z",fill:"#141519"},n);el("rect",{x:148,y:46,width:4,height:16,fill:"#d01f2b"},n);el("circle",{cx:c,cy:c,r:13,fill:"#141519"},n);el("circle",{cx:c,cy:c,r:5,fill:"#d01f2b"},n);
+n.style.setProperty("--rot",(-90+V/5*180)+"deg");})();
 var pend=$$(".rv");function tick(){var vh=innerHeight;pend=pend.filter(function(el){if(el.getBoundingClientRect().top<vh*.92){el.classList.add("in");return false;}return true;});}
 addEventListener("scroll",tick,{passive:true});setTimeout(tick,30);setTimeout(tick,400);
 /* gallery */
