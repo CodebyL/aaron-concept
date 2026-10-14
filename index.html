@@ -89,6 +89,7 @@ nav.main a:hover::after,nav.main a[aria-current]::after{transform:scaleX(1) skew
 .qrow li::after{content:"";width:12px;height:12px;background:var(--hot);transform:skewX(-14deg);margin-left:22px}
 @media (prefers-reduced-motion:no-preference){.qrow ul{animation:mq 46s linear infinite}.quotes:hover ul{animation-play-state:paused}}
 @keyframes mq{to{transform:translateX(-100%)}}
+@media (prefers-reduced-motion:reduce){.qrow{width:auto;max-width:1240px;margin:0 auto}.qrow ul{flex-wrap:wrap;justify-content:center;flex:1}.qrow ul[aria-hidden]{display:none}.qrow li{white-space:normal}}
 
 /* services */
 .svc .head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end}
