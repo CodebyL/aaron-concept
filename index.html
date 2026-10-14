@@ -116,15 +116,17 @@ nav.main a:hover::after,nav.main a[aria-current]::after{transform:scaleX(1) skew
 .match .eb{color:var(--hot-d)}
 .match .lead{color:#5C5C5C}
 .mgrid{display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:center;margin-top:10px}
-.swatches{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
-.swatches button{width:46px;height:46px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 1.5px #CFCFCF;cursor:pointer;transition:box-shadow .2s,transform .2s}
-.swatches button[aria-pressed="true"]{box-shadow:0 0 0 3px var(--ink);transform:scale(1.08)}
 .slider{margin-top:26px}
 .slider label{display:flex;justify-content:space-between;font-weight:700;font-size:14px}
 .slider input{width:100%;margin-top:10px;accent-color:var(--hot)}
 .mstate{margin-top:16px;font-size:15px;background:#fff;border-left:5px solid var(--hot);padding:12px 16px}
-.carbox{background:#fff;padding:24px;box-shadow:0 30px 60px rgba(0,0,0,.08);clip-path:polygon(3% 0,100% 0,97% 100%,0 100%)}
-.carbox svg{width:100%;height:auto;display:block}
+.carbox{background:#fff;padding:14px;box-shadow:0 30px 60px rgba(0,0,0,.1);clip-path:polygon(2.5% 0,100% 0,97.5% 100%,0 100%)}
+.cphoto{position:relative;aspect-ratio:1400/787;max-width:100%;overflow:hidden;background:#D9DCD8}
+.cphoto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cphoto .door{clip-path:polygon(31.4% 47.2%,50.9% 46.1%,51.6% 69.3%,30.7% 69.3%,30.3% 53.4%);transition:filter .25s}
+.cphoto .outline{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;transition:opacity .3s}
+.cphoto .outline polygon{fill:none;stroke:var(--hot);stroke-width:2;stroke-dasharray:6 5}
+.cphoto .tag{position:absolute;left:30.5%;top:72%;background:var(--hot);color:#fff;font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:5px 9px;transition:opacity .3s}
 .match .fine{font-size:13px;color:#6A6A6A;margin-top:14px}
 
 /* process */
@@ -314,29 +316,18 @@ footer{background:var(--blk);border-top:1px solid var(--line);overflow:hidden}
  <div class="wrap mgrid">
   <div data-rv>
    <span class="eb">Color match</span><h2 id="cm-h" class="h2" style="color:var(--ink)">Paint that disappears.</h2>
-   <p class="lead" style="margin-top:16px">A new door painted only to the paint code can look a shade off next to the old paint. Blending the color into the panels beside it is what makes a repair disappear. Pick a color and slide to see the idea.</p>
-   <div class="swatches" role="group" aria-label="Car color">
-    <button type="button" aria-pressed="true" style="background:#1F3B73" data-c="31,59,115" aria-label="Blue"></button>
-    <button type="button" aria-pressed="false" style="background:#8E1015" data-c="142,16,21" aria-label="Red"></button>
-    <button type="button" aria-pressed="false" style="background:#B9BCC0" data-c="185,188,192" aria-label="Silver"></button>
-    <button type="button" aria-pressed="false" style="background:#F2F1EC" data-c="242,241,236" aria-label="White"></button>
-    <button type="button" aria-pressed="false" style="background:#1B1B1D" data-c="27,27,29" aria-label="Black"></button>
-   </div>
+   <p class="lead" style="margin-top:16px">A new door painted only to the paint code can look a shade off next to the old paint. Blending the color into the panels beside it is what makes a repair disappear. Slide to see the idea.</p>
    <div class="slider"><label for="blend"><span>Code only</span><span>Blended</span></label><input id="blend" type="range" min="0" max="100" value="0"></div>
    <p class="mstate" id="mstate" aria-live="polite">Code only: the new door is a shade off from the fender and rear door.</p>
-   <p class="fine">Illustration of the idea, not a photo of their work.</p>
+   <p class="fine">Stock photo. The shade difference is simulated to show the idea; it is not Aaron Auto Body's work.</p>
   </div>
   <div class="carbox" data-rv aria-hidden="true">
-   <svg viewBox="0 0 600 260"><defs><linearGradient id="gl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".45"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>
-    <path id="p1" d="M40 170 L60 130 L150 118 L170 118 L170 200 L70 200 Q44 200 40 170Z" fill="#1F3B73"/>
-    <path id="p2" d="M172 118 L300 112 L300 200 L172 200Z" fill="#2B4D8E"/>
-    <path id="p3" d="M302 112 L410 112 L432 150 L432 200 L302 200Z" fill="#1F3B73"/>
-    <path id="p4" d="M434 150 L540 156 Q566 162 566 186 L566 200 L434 200Z" fill="#1F3B73"/>
-    <path d="M182 112 L230 70 L380 66 L428 112Z" fill="#2B2B2B"/><path d="M196 110 L236 76 L298 74 L298 110Z M304 74 L374 72 L410 110 L304 110Z" fill="#A9C7E0"/>
-    <path d="M40 120 L566 120 L566 200 L40 200Z" fill="url(#gl)" opacity=".6"/>
-    <circle cx="125" cy="205" r="38" fill="#1E1E1E"/><circle cx="125" cy="205" r="18" fill="#9A9A9A"/><circle cx="480" cy="205" r="38" fill="#1E1E1E"/><circle cx="480" cy="205" r="18" fill="#9A9A9A"/>
-    <rect x="276" y="150" width="18" height="5" rx="2" fill="#111"/><rect x="398" y="150" width="18" height="5" rx="2" fill="#111"/>
-    <text x="236" y="236" font-family="Manrope,sans-serif" font-size="13" font-weight="700" fill="#D4161F" text-anchor="middle">NEW DOOR</text></svg>
+   <div class="cphoto">
+    <img src="https://images.unsplash.com/photo-1781120358201-8034aa10aa70?w=1400&amp;q=78&amp;auto=format" alt="" loading="lazy" width="1400" height="787">
+    <img class="door" id="door" src="https://images.unsplash.com/photo-1781120358201-8034aa10aa70?w=1400&amp;q=78&amp;auto=format" alt="" loading="lazy" width="1400" height="787">
+    <svg class="outline" id="outline" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon points="31.4,47.2 50.9,46.1 51.6,69.3 30.7,69.3 30.3,53.4" vector-effect="non-scaling-stroke"/></svg>
+    <span class="tag" id="dtag">Repaired door</span>
+   </div>
   </div>
  </div>
 </section>
@@ -419,13 +410,11 @@ footer{background:var(--blk);border-top:1px solid var(--line);overflow:hidden}
  // today's hours
  var d=new Date().getDay();[].slice.call(document.querySelectorAll('#hours [data-d="'+d+'"]')).forEach(function(e){e.classList.add('today')});
  // color match
- var p=['p1','p2','p3','p4'].map(function(i){return document.getElementById(i)}),base=[31,59,115],rng=document.getElementById('blend'),st=document.getElementById('mstate');
- var col=function(c,k){return 'rgb('+c.map(function(v){return Math.max(0,Math.min(255,Math.round(v+k)))}).join(',')+')'};
- var paint=function(){var t=rng.value/100,off=(1-t)*(base[0]+base[1]+base[2]>500?-26:22);p[0].setAttribute('fill',col(base,0));p[2].setAttribute('fill',col(base,0));p[3].setAttribute('fill',col(base,0));p[1].setAttribute('fill',col(base,off));st.textContent=t<.34?'Code only: the new door is a shade off from the fender and rear door.':t<.8?'Blending: color carried into the panels beside the door.':'Blended: the repaired door matches the panels around it.'};
- [].slice.call(document.querySelectorAll('.swatches button')).forEach(function(b){b.addEventListener('click',function(){base=b.getAttribute('data-c').split(',').map(Number);[].slice.call(document.querySelectorAll('.swatches button')).forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});paint()})});
+ var door=document.getElementById('door'),ol=document.getElementById('outline'),tg=document.getElementById('dtag'),rng=document.getElementById('blend'),st=document.getElementById('mstate');
+ var paint=function(){var t=rng.value/100,k=1-t;door.style.filter='brightness('+(1-.07*k)+') sepia('+(.32*k)+') saturate('+(1+.5*k)+') hue-rotate('+(-6*k)+'deg)';ol.style.opacity=k<.05?0:.35+.65*k;tg.style.opacity=k<.05?0:1;st.textContent=t<.34?'Code only: the new door is a shade off from the fender and rear door.':t<.8?'Blending: color carried into the panels beside the door.':'Blended: the repaired door matches the panels around it.'};
  rng.addEventListener('input',paint);paint();
  // auto-demo the blend once when it scrolls into view
- if(!rm&&'IntersectionObserver' in window){var done=false;new IntersectionObserver(function(es){if(es[0].isIntersecting&&!done&&rng.value==='0'){done=true;var v=0,iv=setInterval(function(){v+=2;rng.value=v;paint();if(v>=100)clearInterval(iv)},24)}},{threshold:.5}).observe(document.querySelector('.carbox'))}
+ if(!rm&&'IntersectionObserver' in window){var done=false;new IntersectionObserver(function(es){if(es[0].isIntersecting&&!done&&rng.value==='0'){done=true;var v=0,iv=setInterval(function(){v+=2;rng.value=v;paint();if(v>=100)clearInterval(iv)},24)}},{threshold:.5}).observe(document.querySelector('.cphoto'))}
  // estimate form
  var f=document.getElementById('efm'),err=document.getElementById('eerr'),ok=document.getElementById('eok'),th=document.getElementById('thumbs');
  document.getElementById('ph').addEventListener('change',function(e){th.innerHTML='';[].slice.call(e.target.files).slice(0,6).forEach(function(file){var im=document.createElement('img');im.alt='Selected photo';im.src=URL.createObjectURL(file);th.appendChild(im)})});
