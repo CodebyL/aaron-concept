@@ -29,7 +29,8 @@ h1,h2,h3{margin:0;font-family:var(--head);font-weight:800;font-stretch:112%;lett
 .js .rv{opacity:0;transform:translateY(20px);transition:opacity .8s var(--ease),transform .9s var(--ease);transition-delay:calc(var(--d,0)*70ms)}
 .js .rv.in{opacity:1;transform:none}
 /* header */
-header{position:absolute;top:0;left:0;right:0;z-index:50;color:#fff}
+header{position:sticky;top:0;z-index:50;color:#fff;margin-bottom:-84px;transition:background-color .25s,box-shadow .25s}
+header.stuck,header.open{background:#16171c;box-shadow:0 1px 0 rgba(255,255,255,.08),0 8px 24px rgba(0,0,0,.25)}
 header .wrap{display:flex;align-items:center;gap:1rem;min-height:84px}
 .brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:inherit;min-height:44px}
 .brand .mk{display:grid;place-items:center;width:46px;height:46px;background:var(--red);color:#fff;font:900 1.4rem/1 var(--head);font-stretch:120%}
@@ -40,6 +41,16 @@ nav.main a{font:700 .82rem var(--sans);letter-spacing:.14em;text-transform:upper
 nav.main a:hover{opacity:1;color:#ffb3b8}
 .hc{margin-left:auto}.hc .btn{min-height:46px;padding:.3rem 1.1rem;font-size:.85rem}
 @media(min-width:1040px){nav.main{display:flex}.hc{margin-left:1.6rem}}
+.mt{margin-left:auto;display:inline-flex;align-items:center;gap:.55rem;min-height:46px;padding:.3rem .95rem;border:2px solid rgba(255,255,255,.7);border-radius:4px;background:transparent;color:#fff;font:700 .82rem var(--sans);letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.mt:hover{border-color:#fff}.mt i{position:relative;width:16px;height:2px;background:currentColor}.mt i::before,.mt i::after{content:"";position:absolute;left:0;width:16px;height:2px;background:currentColor}.mt i::before{top:-5px}.mt i::after{top:5px}
+.mt[aria-expanded="true"] i{background:transparent}.mt[aria-expanded="true"] i::before{top:0;transform:rotate(45deg)}.mt[aria-expanded="true"] i::after{top:0;transform:rotate(-45deg)}
+.hc+.mt,.mt{margin-left:.8rem}@media(max-width:640px){.mt{margin-left:auto}}
+.mm{position:fixed;z-index:49;left:0;right:0;top:var(--hh,84px);background:#16171c;border-top:1px solid rgba(255,255,255,.1);max-height:calc(100dvh - var(--hh,84px));overflow:auto;box-shadow:0 18px 30px rgba(0,0,0,.3)}
+.mm .wrap{display:grid;padding-block:.6rem 1.4rem;min-height:0}
+.mm a:not(.btn){display:flex;align-items:center;min-height:52px;border-bottom:1px solid rgba(255,255,255,.1);color:#fff;text-decoration:none;font:700 .9rem var(--sans);letter-spacing:.14em;text-transform:uppercase}
+.mm .cta{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:1rem}.mm .cta .btn.w{border-color:rgba(255,255,255,.8)}
+@media(min-width:1040px){.mt,.mm{display:none!important}}
+@media(max-width:640px){header{margin-bottom:-68px}header .wrap{min-height:68px}.mm{max-height:calc(100dvh - var(--hh,68px))}}
 @media(max-width:640px){.hc{display:none}}
 /* hero */
 .hero{position:relative;color:#fff;background:radial-gradient(70% 90% at 78% 30%,#2e3139 0%,var(--graph) 60%,#16171c 100%);overflow:hidden;padding-block:8.5rem 4.5rem}
@@ -223,7 +234,12 @@ footer .dis{margin-top:1.4rem;padding-top:1rem;border-top:1px solid #2c2e35;font
  <a class="brand" href="#top" aria-label="Aaron Auto Body, home"><span class="mk" aria-hidden="true">A</span><span><b>Aaron Auto Body</b><small>Holtsville, NY</small></span></a>
  <nav class="main" aria-label="Main"><a href="#repairs">Repairs</a><a href="#work">Our work</a><a href="#reviews">Reviews</a><a href="#visit">Visit</a></nav>
  <div class="hc"><a class="btn" href="tel:+16312896550">(631) 289-6550</a></div>
+ <button class="mt" type="button" aria-expanded="false" aria-controls="mm" data-nav-toggle><i aria-hidden="true"></i><span>Menu</span></button>
 </div></header>
+<div class="mm" id="mm" hidden><div class="wrap">
+ <nav aria-label="Menu" style="display:grid" data-nav-menu><a href="#repairs">Repairs</a><a href="#work">Our work</a><a href="#process">How it works</a><a href="#reviews">Reviews</a><a href="#visit">Visit</a></nav>
+ <div class="cta"><a class="btn" href="#estimate">Get an estimate</a><a class="btn w" href="tel:+16312896550">Call</a></div>
+</div></div>
 <main id="main">
 <section class="hero" id="top">
  <div class="wrap g">
@@ -403,5 +419,53 @@ var f=$("#ef");f.addEventListener("submit",function(e){e.preventDefault();var ba
 $("#again").addEventListener("click",function(){f.reset();$("#th").innerHTML="";f.hidden=false;$("#ok").hidden=true;});
 })();
 </script>
+<script>
+(function(){var h=document.querySelector("header"),t=h.querySelector(".mt"),m=document.getElementById("mm"),l=t.querySelector("span");
+function st(){h.classList.toggle("stuck",scrollY>8)}addEventListener("scroll",st,{passive:true});st();
+function set(o){t.setAttribute("aria-expanded",o?"true":"false");m.hidden=!o;h.classList.toggle("open",o);l.textContent=o?"Close":"Menu";}
+t.addEventListener("click",function(){set(t.getAttribute("aria-expanded")!=="true")});
+m.addEventListener("click",function(e){if(e.target.closest("a"))set(false)});
+matchMedia("(min-width:1040px)").addEventListener("change",function(e){if(e.matches)set(false)});})();
+</script>
+<!-- navkit: sticky-nav helpers (anchor offset, active section, menu keyboard). Insert once, right before </body>. -->
+<style data-navkit>
+[id]{scroll-margin-top:calc(var(--hh,80px) + 14px)}
+[data-nav-header] a[aria-current="true"],[data-nav-menu] a[aria-current="true"]{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px}
+</style>
+<script data-navkit>
+(function(){
+  var d=document.documentElement;
+  var hdr=document.querySelector('[data-nav-header]')||document.querySelector('header');
+  if(!hdr)return;hdr.setAttribute('data-nav-header','');
+  var setH=function(){var r=hdr.getBoundingClientRect();var pos=getComputedStyle(hdr).position;d.style.setProperty('--hh',((pos==='sticky'||pos==='fixed')?Math.round(r.height):0)+'px')};
+  setH();addEventListener('resize',setH);addEventListener('load',setH);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(setH);
+  // menu: toggle button + panel
+  var tog=hdr.querySelector('[data-nav-toggle]')||hdr.querySelector('button[aria-controls]')||[].slice.call(hdr.querySelectorAll('button')).filter(function(b){return /menu|nav|burger/i.test((b.getAttribute('aria-label')||'')+' '+b.className+' '+b.textContent)})[0];
+  var menu=document.querySelector('[data-nav-menu]')||(tog&&tog.getAttribute('aria-controls')&&document.getElementById(tog.getAttribute('aria-controls')));
+  if(menu)menu.setAttribute('data-nav-menu','');
+  if(tog){
+    if(!tog.hasAttribute('aria-expanded'))tog.setAttribute('aria-expanded','false');
+    tog.addEventListener('click',function(){setTimeout(function(){var o=tog.getAttribute('aria-expanded')==='true';if(o&&menu){var f=menu.querySelector('a,button');if(f)f.focus({preventScroll:true})}},30)});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&tog.getAttribute('aria-expanded')==='true'){tog.click();tog.focus()}});
+    if(menu)[].slice.call(menu.querySelectorAll('a[href^="#"]')).forEach(function(a){a.addEventListener('click',function(){setTimeout(function(){if(tog.getAttribute('aria-expanded')==='true')tog.click()},0)})});
+  }
+  // active section (stable: last linked section whose top passed just below the header)
+  var links=[].slice.call(document.querySelectorAll('[data-nav-header] a[href^="#"],[data-nav-menu] a[href^="#"]')).filter(function(a){var h=a.getAttribute('href');return h.length>1&&h!=='#top'&&document.getElementById(h.slice(1))});
+  if(links.length){
+    var ids=[];links.forEach(function(a){var id=a.getAttribute('href').slice(1);if(ids.indexOf(id)<0)ids.push(id)});
+    ids.sort(function(a,b){return document.getElementById(a).compareDocumentPosition(document.getElementById(b))&2?1:-1});
+    var cur=null,tk=false;
+    var upd=function(){tk=false;var hh=parseFloat(getComputedStyle(d).getPropertyValue('--hh'))||0;var line=hh+Math.min(160,innerHeight*.25),pick=null;
+      ids.forEach(function(id){if(document.getElementById(id).getBoundingClientRect().top<=line)pick=id});
+      if(Math.ceil(scrollY+innerHeight)>=d.scrollHeight-2)pick=ids[ids.length-1];
+      if(pick===cur)return;cur=pick;links.forEach(function(a){if(a.getAttribute('href')==='#'+pick)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')})};
+    addEventListener('scroll',function(){if(!tk){tk=true;requestAnimationFrame(upd)}},{passive:true});addEventListener('resize',upd);upd();
+  }
+  // direct links: re-align after layout settles
+  if(location.hash.length>1){var t=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(t)addEventListener('load',function(){setH();t.scrollIntoView({block:'start'})})}
+})();
+</script>
+<style>@media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+[data-nav-header] a[aria-current="true"],[data-nav-menu] a[aria-current="true"]{text-decoration-color:var(--red);opacity:1}</style>
 </body>
 </html>
